@@ -8,8 +8,12 @@ function NewGrapher() {
 
 	grapher.clear_graph = function() {
 
+		let container = graph.parentElement;
+		let containerRect = container.getBoundingClientRect();
+
+		let width = containerRect.width - 48;
+
 		let boundingrect = graph.getBoundingClientRect();
-		let width = window.innerWidth - boundingrect.left - 16;
 		let height = boundingrect.bottom - boundingrect.top;
 
 		// This clears the canvas...
@@ -57,7 +61,7 @@ function NewGrapher() {
 
 		// Draw our dashed runs...
 
-		graphctx.strokeStyle = "#999999";
+		graphctx.strokeStyle = "#E9E9E9";
 		graphctx.lineWidth = config.graph_line_width;
 		graphctx.setLineDash([config.graph_line_width, config.graph_line_width]);
 
@@ -143,7 +147,7 @@ function NewGrapher() {
 		// Avoid anti-aliasing... (FIXME: we assumed graph size was even)
 		let pixel_y_adjustment = config.graph_line_width % 2 === 0 ? 0 : -0.5;
 
-		graphctx.strokeStyle = "#666666";
+		graphctx.strokeStyle = "#B9B9B9";
 		graphctx.lineWidth = config.graph_line_width;
 		graphctx.setLineDash([config.graph_line_width, config.graph_line_width]);
 
@@ -169,7 +173,7 @@ function NewGrapher() {
 
 		let x = Math.floor(width * node.depth / node.graph_length_knower.val) + pixel_x_adjustment;
 
-		graphctx.strokeStyle = node.is_main_line() ? "#6cccee" : "#ffff00";
+		graphctx.strokeStyle = node.is_main_line() ? "#41A3EC" : "#EFC45E";
 		graphctx.lineWidth = config.graph_line_width;
 		graphctx.setLineDash([config.graph_line_width, config.graph_line_width]);
 

@@ -1,27 +1,41 @@
+:root {
+	--shadow-color: 0deg 0% 3%;
+	--shadow: 0.2px 0.1px 0.3px hsl(var(--shadow-color) / 0.19),
+	1.1px 0.7px 1.6px -0.3px hsl(var(--shadow-color) / 0.21),
+	1.9px 1.2px 2.7px -0.6px hsl(var(--shadow-color) / 0.22),
+	3px 1.9px 4.3px -0.9px hsl(var(--shadow-color) / 0.23),
+	4.6px 3px 6.6px -1.1px hsl(var(--shadow-color) / 0.24),
+	6.9px 4.5px 9.9px -1.4px hsl(var(--shadow-color) / 0.25),
+	10.2px 6.7px 14.6px -1.7px hsl(var(--shadow-color) / 0.27),
+	14.9px 9.7px 21.3px -2px hsl(var(--shadow-color) / 0.28);
+}
+
 html {
 	height: 100%;
 }
 
 body {
-	background-color: #080808;
-	border: 0;
-	color: #eeeeee;
+	background-color: #181818;
+	color: #B9B9B9;
 	cursor: default;
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
-	pointer-events: none;		/* These must be overriden for things that need pointer / select */
-	user-select: none;			/* These must be overriden for things that need pointer / select */
+	pointer-events: none; /* These must be overriden for things that need pointer / select */
+	user-select: none; /* These must be overriden for things that need pointer / select */
+	font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+	font-weight: normal;
 }
 
 ::-webkit-scrollbar {
-	pointer-events: auto;
-	background-color: #181818;
+	width: 8px;
+	height: 8px;
+	background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-	pointer-events: auto;
-	background-color: #444444;
+	background-color: #333333;
+	border-radius: 4px;
 }
 
 #gridder {
@@ -33,41 +47,47 @@ body {
 		"a b"
 		"f f"
 		"g g";
+	gap: 1.5rem;
+	padding: 0.5rem 1.5rem 1.5rem 0.5rem;
 }
 
 #rightgridder {
 	grid-area: b;
 	display: grid;
-	margin: 1em 0 0 0;
-	height: 0;							/* js needs to keep this equal to the boardsize */
+	margin: 1rem 0 0 0;
+	height: 0; /* js needs to keep this equal to the boardsize */
 	grid-template-columns: none;
 	grid-template-rows: min-content 1fr min-content;
 	grid-template-areas:
 		"c"
 		"d"
 		"e";
+	gap: 1rem;
 }
 
 #boardsquares {
 	grid-area: a;
-	margin: 1em 0 0 1em;
+	margin: 1rem 0 0 1rem;
 	background-size: cover;
 	border-collapse: collapse;
 	table-layout: fixed;
 	z-index: 1;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 #canvas {
 	grid-area: a;
-	margin: 1em 0 0 1em;
+	margin: 1rem 0 0 1rem;
 	display: block;
-	outline-offset: 6px;
 	z-index: 2;
+	outline-offset: 8px;
 }
 
 #boardfriends {
 	grid-area: a;
-	margin: 1em 0 0 1em;
+	margin: 1rem 0 0 1rem;
 	border-collapse: collapse;
 	pointer-events: auto;
 	table-layout: fixed;
@@ -77,72 +97,92 @@ body {
 .grabbable {
 	cursor: grab;
 }
+
 .grabbable:active {
 	cursor: grabbing;
 }
 
 #statusbox {
 	grid-area: c;
-	margin: 0 0 0 1em;
+	margin: 0 0 0 1rem;
+	padding: 1rem;
 	border: none;
 	display: block;
-	font-family: monospace, monospace;
+	color: #B9B9B9;
+	font-family: 'Nimbus Mono PS', 'Courier New', monospace;
 	pointer-events: auto;
 	overflow: hidden;
 	white-space: pre;
+	background-color: #272727;
+	border-radius: 8px;
 }
 
 #infobox {
 	grid-area: d;
-	margin: 1em 1em 0 1em;
+	margin: 1rem 0 1rem 1rem;
+	padding: 1rem;
 	display: block;
-	color: #cccccc;						/* only used for Lc0 stderr output at startup */
-	font-family: monospace, monospace;
+	color: #B9B9B9; /* only used for Lc0 stderr output at startup */
+	font-family: 'Nimbus Mono PS', 'Courier New', monospace;
 	overflow-x: hidden;
 	overflow-y: auto;
-	padding-right: 10px;				/* so the text doesn't get so near the scroll bar */
 	pointer-events: auto;
 	white-space: pre-wrap;
+	background-color: #272727;
+	border-radius: 8px;
 }
 
 #graph {
 	grid-area: e;
 	align-self: end;
 	display: block;
-	margin: 10px 0 0 1em;
+	margin: 0 0 0 1rem;
 	pointer-events: auto;
+	background-color: #272727;
+	border-radius: 8px;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
-input[type=text]:focus {
-	outline: 2px dashed gray;
-	outline-offset: 4px;
-}
 
 #fenbox {
 	grid-area: f;
-	margin: 1em 1em 0 1em;
-	background-color: #080808;
+	margin: 0.5rem 0 0.5rem 1rem;
+	padding: 0.75rem 1rem;
+	background-color: #272727;
 	border: none;
-	caret-color: white;
-	color: #6cccee;
+	outline: 2px solid #272727;
+	outline-offset: -2px;
+	border-radius: 8px;
+	caret-color: #F7F7F7;
+	color: #41A3EC;
 	display: block;
-	font-family: monospace, monospace;
+	font-family: 'Nimbus Mono PS', 'Courier New', monospace;
 	font-size: 100%;
 	pointer-events: auto;
 	user-select: auto;
+	transition: outline-color 0.2s;
+}
+
+#fenbox:focus {
+	outline: 2px solid #41A3EC;
+	outline-offset: -2px;
 }
 
 #movelist {
 	grid-area: g;
-	margin: 1em 1em 1em 1em;
+	margin: 0 0 0 1rem;
+	padding: 1rem 1rem 1rem 1rem;
 	display: block;
-	color: #999999;
-	font-family: monospace, monospace;
+	color: #B9B9B9;
+	font-family: 'Nimbus Mono PS', 'Courier New', monospace;
 	overflow-x: hidden;
 	overflow-y: auto;
-	padding-right: 10px;				/* so the text doesn't get so near the scroll bar */
 	pointer-events: auto;
 	white-space: pre-wrap;
+	background-color: #272727;
+	border-radius: 8px;
+	height: 23vh;
 }
 
 #promotiontable {
@@ -152,12 +192,14 @@ input[type=text]:focus {
 	position: fixed;
 	table-layout: fixed;
 	z-index: 4;
+	border-radius: 8px;
+	padding: 0.2rem;
 }
 
 #fullbox {
-	background-color: #080808;
-	display: none;						/* better than visibility: hidden - never intercepts inputs */
-	font-family: monospace, monospace;
+	background-color: #181818;
+	display: none; /* better than visibility: hidden - never intercepts inputs */
+	font-family: 'Nimbus Mono PS', 'Courier New', ui-monospace, monospace;
 	font-size: 100%;
 	height: 100%;
 	left: 0;
@@ -171,8 +213,11 @@ input[type=text]:focus {
 
 #fullbox_content {
 	overflow: hidden;
-	padding: 1em;
+	padding: 1rem;
 	white-space: pre;
+	background-color: #272727;
+	border-radius: 8px;
+	margin: 1rem;
 }
 
 td {
@@ -183,8 +228,14 @@ td {
 	padding: 0;
 }
 
-a, a:link, a:visited, a:hover, a:active {	/* I think this is now only used for the "Nibbler in normal browser" message. */
-	color: #6cccee;
+a, a:link, a:visited { /* I think this is now only used for the "Nibbler in normal browser" message. */
+	color: #259D94;
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+a:hover, a:active {
+	color: #69D5CB;
 }
 
 ul {
@@ -192,35 +243,35 @@ ul {
 }
 
 .pink {
-	color: #ffaaaa;
+	color: #d97578;
 }
 
 .white {
-	color: #eeeeee;
+	color: #F7F7F7;
 }
 
 .gray {
-	color: #999999;
+	color: #B9B9B9;
 }
 
 .darkgray {
-	color: #666666;
+	color: #272727;
 }
 
 .red {
-	color: #ff6666;
+	color: #FF4F5B;
 }
 
 .yellow {
-	color: #ffff00;
+	color: #EFC45E;
 }
 
 .green {
-	color: #66ff66;
+	color: #A7BD43;
 }
 
 .blue {
-	color: #6cccee;
+	color: #41A3EC;
 }
 
 .infoline {
@@ -232,31 +283,39 @@ ul {
 }
 
 .enginechooser:hover {
-	color: #6cccee;
+	color: #41A3EC;
 }
 
 .pgnchooser:hover {
-	background-color: #202020;
+	background-color: #252525;
 }
 
 .ocm_highlight {
-	background-color: #770000;
+	border: 1px solid #F23749;
+	border-radius: 4px;
 }
 
 .hover_highlight {
-	background-color: #222244;
+	background-color: rgba(2, 124, 194, 0.3);
+	border-radius: 4px;
 }
 
 span.movelist_highlight_blue {
-	background-color: #222244;
-	color: #6cccee;
+	background-color: rgba(2, 124, 194, 0.3);
+	color: #41A3EC;
+	border-radius: 4px;
 }
 
 span.movelist_highlight_yellow {
-	background-color: #444422;
-	color: #ffff00;
+	background-color: rgba(173, 132, 3, 0.3);
+	color: #EFC45E;
+	border-radius: 4px;
 }
 
 span.nobr {
-	white-space: nowrap;				/* Used for O-O and O-O-O moves */
+	white-space: nowrap; /* Used for O-O and O-O-O moves */
+}
+
+* {
+	transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
